@@ -8,9 +8,31 @@ Repository: <https://github.com/Xiaolong-6/Keith-IVt>
 
 Release page: <https://github.com/Xiaolong-6/Keith-IVt/releases>
 
+## Screenshots
+
+Setup and live plot area:
+
+![Keith-IVt setup screen](docs/screenshots/keith-ivt-setup.png)
+
+Measurement controls:
+
+![Keith-IVt measure screen](docs/screenshots/keith-ivt-measure.png)
+
+About and settings page:
+
+![Keith-IVt about screen](docs/screenshots/keith-ivt-about.png)
+
 ## License
 
 Keith-IVt is released under the MIT License. See `LICENSE`.
+
+## Documentation
+
+- [Architecture notes](docs/ARCHITECTURE.md)
+- [Roadmap](docs/ROADMAP.md)
+- [Packaging notes](docs/PACKAGING.md)
+- [Release checklist](docs/RELEASE_CHECKLIST.md)
+- [Release verification record](docs/RELEASE_VERIFICATION_2026-05-11.md)
 
 ## Prerequisites
 
@@ -95,5 +117,5 @@ results = run_hardware_checks("COM3", 9600, "REAR");
 ## Known Limitations
 
 - Hardware smoke checks have been run on a Keithley 2401. Other models and serial adapters should be verified before release use.
-- MATLAB Runtime packaging notes exist, but the packaged app has not yet been verified on a clean machine.
+- A Windows Runtime package has been built and smoke-tested on the build machine, but not yet verified on a separate clean machine.
 - Instrument profiles are detected, but UI limits are not yet fully clamped by the detected model.

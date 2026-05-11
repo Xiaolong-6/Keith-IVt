@@ -3,7 +3,19 @@ function IVStudioApp(appRoot)
 
 clc;
 if nargin < 1 || isempty(appRoot)
-    appRoot = fileparts(fileparts(mfilename('fullpath')));
+    if isdeployed
+        appRoot = ctfroot;
+    else
+        appRoot = fileparts(fileparts(mfilename('fullpath')));
+    end
+end
+resourceRoot = appRoot;
+dataRoot = appRoot;
+if isdeployed
+    dataRoot = fullfile(prefdir,'Keith-IVt');
+    if ~isfolder(dataRoot)
+        mkdir(dataRoot);
+    end
 end
 helpMark = '';
 devilIcon = native2unicode(uint8([240 159 152 136]),'UTF-8');
@@ -28,22 +40,22 @@ app.compactModeBreakpoint = 0;
 app.layoutTimer = [];
 app.instrumentID = '';
 app.instrumentProfile = [];
-app.exportFolder = appRoot;
-app.cacheFolder = fullfile(appRoot,'cache');
+app.exportFolder = dataRoot;
+app.cacheFolder = fullfile(dataRoot,'cache');
 app.currentAutosaveFile = '';
 app.cacheLogFile = '';
 app.cacheLogMaxBytes = 1024*1024;
 app.recoveryMaxRows = 50;
-app.configFolder = fullfile(appRoot,'config');
+app.configFolder = fullfile(dataRoot,'config');
 if ~isfolder(app.configFolder)
     mkdir(app.configFolder);
 end
 app.presetFile = fullfile(app.configFolder,'presets.mat');
-legacyPresetFile = fullfile(appRoot,'presets.mat');
+legacyPresetFile = fullfile(dataRoot,'presets.mat');
 if ~isfile(app.presetFile) && isfile(legacyPresetFile)
     movefile(legacyPresetFile,app.presetFile);
 end
-app.aboutFile = fullfile(appRoot,'ABOUT.txt');
+app.aboutFile = fullfile(resourceRoot,'ABOUT.txt');
 % mode: 'VOLT' means X=V, Y=I. mode: 'CURR' means X=I, Y=V.
 app.devices = struct('name',{},'comment',{},'mode',{},'X',{},'Y',{},'visible',{},'raw',{},'meta',{});
 app.colors = lines(50);

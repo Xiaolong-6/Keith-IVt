@@ -12,6 +12,8 @@ Public beta source release.
 - Release verification record for MATLAB R2025b and Keithley 2401 hardware checks.
 - Conservative unknown-resistor hardware characterization script.
 - `.gitignore` rules for cache files, archives, backups, and build output.
+- GitHub README screenshots.
+- Windows Runtime package built with MATLAB Compiler R2025b.
 
 ### Verified
 
@@ -22,15 +24,17 @@ Public beta source release.
 - Open-circuit sweep and time trace returned finite data.
 - Unknown resistor connected to rear terminals measured approximately `148 Mohm`.
 - Keithley output was confirmed OFF after hardware testing.
+- Compiled Windows executable smoke-tested on the build machine.
 
 ### Fixed
 
 - Corrected the 4-wire hardware check result-table allocation.
 - Adjusted the fixed action area so the Pause/Resume button text is not clipped.
+- Runtime deployments now store cache, logs, presets, and default exports under `prefdir/Keith-IVt`.
 
 ### Known Limitations
 
 - Public beta is hardware-verified on Keithley 2401 only.
-- MATLAB Runtime packaging has not yet been verified on a clean machine.
+- MATLAB Runtime package has been build-machine smoke-tested, but not yet verified on a separate clean machine.
 - Instrument profile limits are not yet fully enforced in the UI.
 - Users must verify wiring, terminals, sense mode, compliance, and serial settings for their own setup.

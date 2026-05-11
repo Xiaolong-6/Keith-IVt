@@ -1,6 +1,6 @@
 # Keith-IVt Packaging Notes
 
-These notes define the intended packaging process for a public beta. Update them after the first successful MATLAB Runtime packaging test.
+These notes define the packaging process for the public beta. The first Windows Runtime package was built and smoke-tested with MATLAB Compiler R2025b.
 
 Repository: `https://github.com/Xiaolong-6/Keith-IVt`
 
@@ -12,10 +12,13 @@ Include:
 - `ABOUT.txt`
 - `README.md`
 - `LICENSE`
-- `ARCHITECTURE.md`
-- `ROADMAP.md`
-- `RELEASE_CHECKLIST.md`
-- `PACKAGING.md`
+- `CHANGELOG.md`
+- `docs/ARCHITECTURE.md`
+- `docs/ROADMAP.md`
+- `docs/RELEASE_CHECKLIST.md`
+- `docs/PACKAGING.md`
+- `docs/RELEASE_VERIFICATION_2026-05-11.md`
+- `docs/screenshots/`
 - `+core/`
 - `+data/`
 - `+hardware/`
@@ -61,6 +64,32 @@ Validate the package on a clean machine or clean user profile:
 - Autosave/recovery writes to `cache/`.
 - CSV export/import works with a short debug dataset.
 - The About page shows the expected version and release URL.
+
+## 0.3.0 Beta Windows Runtime Build
+
+Built package:
+
+```text
+dist/Keith-IVt-v0.3.0-beta-runtime-win.zip
+```
+
+Executable inside the package:
+
+```text
+Keith_IVt.exe
+```
+
+Required Runtime:
+
+```text
+MATLAB Runtime R2025b (25.2) for Windows
+```
+
+Smoke test performed on the build machine:
+
+- Compiled executable launched successfully.
+- The process remained running after startup instead of exiting immediately.
+- Generated runtime data is directed to `prefdir/Keith-IVt` instead of the app install folder.
 
 ## Public Beta Notes
 

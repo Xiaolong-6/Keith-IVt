@@ -100,4 +100,14 @@ Added `hardware_checks/characterize_unknown_resistor.m` for conservative unknown
 ## Remaining Release Items
 
 - Complete the manual Light/Dark UI smoke test.
-- Package from a clean source folder and validate the package.
+- Validate the Windows Runtime package on a separate clean machine.
+
+## Windows Runtime Package
+
+Built with MATLAB Compiler R2025b:
+
+```text
+dist/Keith-IVt-v0.3.0-beta-runtime-win.zip
+```
+
+The compiled executable `Keith_IVt.exe` was launched on the build machine and remained running after startup. Runtime cache, presets, logs, and default exports are configured to use `prefdir/Keith-IVt`.

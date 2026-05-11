@@ -14,8 +14,8 @@ Use this checklist for every public release candidate.
 - Confirm the release URL in `+core/AppInfo.m` points to the active GitHub releases page.
 - Confirm `README.md` launch instructions on a clean MATLAB session.
 - Confirm `ABOUT.txt` matches the release behavior.
-- Confirm `ARCHITECTURE.md` still matches the code layout.
-- Confirm `ROADMAP.md` separates post-release ideas from release blockers.
+- Confirm `docs/ARCHITECTURE.md` still matches the code layout.
+- Confirm `docs/ROADMAP.md` separates post-release ideas from release blockers.
 - Confirm `LICENSE` still matches the intended release terms.
 
 ## Non-Hardware Checks
@@ -69,7 +69,7 @@ Save the MATLAB command-window output with the release notes.
 
 ## Packaging
 
-- Follow `PACKAGING.md`.
+- Follow `docs/PACKAGING.md`.
 - Build from a clean folder or clean checkout.
 - Exclude `cache/`, `archive/`, generated exports, backups, and local test data.
 - Confirm the packaged app launches on a machine without local path assumptions.
