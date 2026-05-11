@@ -2,6 +2,8 @@
 
 These notes define the intended packaging process for a public beta. Update them after the first successful MATLAB Runtime packaging test.
 
+Repository: `https://github.com/Xiaolong-6/Keith-IVt`
+
 ## Source Package
 
 Include:

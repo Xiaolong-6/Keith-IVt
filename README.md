@@ -4,6 +4,10 @@ Keith-IVt is a MATLAB desktop app for Keithley 2400 Series SourceMeter measureme
 
 The current release target is `0.3.0 beta`.
 
+Repository: <https://github.com/Xiaolong-6/Keith-IVt>
+
+Release page: <https://github.com/Xiaolong-6/Keith-IVt/releases>
+
 ## License
 
 Keith-IVt is released under the MIT License. See `LICENSE`.
@@ -91,6 +95,5 @@ results = run_hardware_checks("COM3", 9600, "REAR");
 ## Known Limitations
 
 - Hardware smoke checks have been run on a Keithley 2401. Other models and serial adapters should be verified before release use.
-- MATLAB Runtime packaging has not yet been documented.
-- MATLAB Runtime packaging has not yet been verified on a clean machine.
+- MATLAB Runtime packaging notes exist, but the packaged app has not yet been verified on a clean machine.
 - Instrument profiles are detected, but UI limits are not yet fully clamped by the detected model.

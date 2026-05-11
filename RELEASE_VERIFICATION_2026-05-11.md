@@ -5,6 +5,8 @@ This record captures the release-gate checks run for the public beta track.
 ## Environment
 
 - Date: 2026-05-11
+- Repository: `https://github.com/Xiaolong-6/Keith-IVt`
+- Release target: `0.3.0 beta`
 - MATLAB host: Windows
 - Serial port: `COM3`
 - Baud rate: `9600`
@@ -97,6 +99,5 @@ Added `hardware_checks/characterize_unknown_resistor.m` for conservative unknown
 
 ## Remaining Release Items
 
-- Replace the placeholder release URL in `+core/AppInfo.m`.
 - Complete the manual Light/Dark UI smoke test.
 - Package from a clean source folder and validate the package.
