@@ -91,23 +91,58 @@ Stability check:
 - Resistance standard deviation: approximately `0.084 Mohm`
 - Output state after the test was queried as `0` (OFF).
 
+Additional post-Runtime-build hardware validation:
+
+- Standard hardware check suite passed again on `COM3`, `9600` baud, `REAR` terminal.
+- 2-wire/4-wire sense readbacks passed.
+- Auto and fixed range checks passed.
+- Open-circuit sweep returned `3/3` finite readings.
+- Time trace returned `3/3` finite readings.
+- Loaded rear-terminal resistor I-V sweep fitted approximately `147.98 Mohm`.
+- Loaded resistor stability check returned `10/10` finite readings at `1 V`.
+- Post-test output state was queried as `0` (OFF).
+
 ## Fix Applied During Verification
 
 `hardware_checks/verify_4wire_sense_mode.m` had a result-table preallocation mismatch: the table stored 7 columns, but the intermediate `rows` cell array was allocated with 6 columns. The preallocation was corrected to 7 columns, then the full hardware check suite passed.
 
 Added `hardware_checks/characterize_unknown_resistor.m` for conservative unknown-resistor characterization using low voltage and current compliance.
 
+## Windows Runtime Package
+
+Built with MATLAB Compiler R2025b using Windows GUI mode:
+
+```text
+dist/Keith-IVt-v0.3.0-beta-runtime-win-gui.zip
+```
+
+SHA256:
+
+```text
+617121CD3FE712FF7CD8B71BBF828628E13D687BFFA25BEFBB7560C01AD04140
+```
+
+The compiled executable is:
+
+```text
+Keith_IVt.exe
+```
+
+Required Runtime:
+
+```text
+MATLAB Runtime R2025b (25.2) for Windows
+```
+
+Runtime validation on the build machine:
+
+- The executable opens the Keith-IVt UI.
+- The About page loads packaged `ABOUT.txt`.
+- Closing the UI no longer raises the `Invalid or deleted object` wait error.
+- Runtime cache, presets, logs, and default exports are configured to use `%APPDATA%/Keith-IVt`.
+- Startup remains slow, typically tens of seconds, because MATLAB Runtime initializes the JVM/uifigure stack and packaged resources.
+
 ## Remaining Release Items
 
 - Complete the manual Light/Dark UI smoke test.
 - Validate the Windows Runtime package on a separate clean machine.
-
-## Windows Runtime Package
-
-Built with MATLAB Compiler R2025b:
-
-```text
-dist/Keith-IVt-v0.3.0-beta-runtime-win.zip
-```
-
-The compiled executable `Keith_IVt.exe` was launched on the build machine and remained running after startup. Runtime cache, presets, logs, and default exports are configured to use `prefdir/Keith-IVt`.
