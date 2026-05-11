@@ -1,6 +1,6 @@
 # Keith-IVt
 
-Keith-IVt is a MATLAB desktop app for Keithley 2400 Series SourceMeter measurements. It supports source sweeps, time traces, live and stored plotting, CSV import/export, autosave recovery, presets, and an offline debug mode for development without an attached instrument.
+Keith-IVt is a MATLAB desktop app for Keithley 2400 Series SourceMeter measurements. It supports source sweeps, time traces, live and stored plotting, CSV import/export, autosave recovery, presets, and an offline debug mode for data exploration without an attached instrument.
 
 The current release target is `0.3.0 beta`.
 
@@ -34,16 +34,74 @@ Keith-IVt is released under the MIT License. See `LICENSE`.
 - [Release checklist](docs/RELEASE_CHECKLIST.md)
 - [Release verification record](docs/RELEASE_VERIFICATION_2026-05-11.md)
 
-## Prerequisites
+## Getting Started
+
+### From Source (MATLAB Required)
+
+Prerequisites:
 
 - MATLAB with `uifigure`, `serialport`, and `serialportlist` support.
 - Tested with MATLAB R2025b on Windows.
-- A Keithley 2400 Series SourceMeter for hardware measurements.
-- A working serial/USB serial connection that appears as a COM port, such as `COM3` on Windows.
-- The operating-system driver for the serial adapter or USB-to-serial cable, if one is needed.
-- Matching Keithley serial settings in the app and on the instrument. The release checks used `9600` baud.
 
-Debug mode can be used without hardware or a serial driver. Real hardware mode requires MATLAB to be able to list and open the instrument port with `serialportlist('available')` and `serialport(...)`.
+Launch:
+
+```matlab
+START_Keith_IVt
+```
+
+The launcher creates the app from `+ui/IVStudioApp.m`.
+
+### From Windows Runtime Package
+
+Prerequisites:
+
+- Free MATLAB Runtime R2025b (25.2) for Windows. Download from [MathWorks](https://www.mathworks.com/products/compiler/mcr/).
+
+Download and Launch:
+
+1. Download `Keith-IVt-v0.3.0-beta-runtime-win-gui.zip` from the [Release page](https://github.com/Xiaolong-6/Keith-IVt/releases).
+2. Unzip the package.
+3. Run `Keith_IVt.exe`.
+4. On first launch, Windows may need to download and install MATLAB Runtime R2025b (one-time setup, a few minutes).
+5. The app will open after MATLAB Runtime initializes (which can take tens of seconds on first launch).
+
+## Debug Mode
+
+Debug mode lets you explore the app without hardware:
+
+- **No Keithley meter required** — no serial connection needed.
+- **Import and analyze existing measurement data** — load CSV files from previous measurements.
+- **Create synthetic test data** — verify UI behavior and measurement workflows.
+
+To activate:
+
+1. Open the About page.
+2. Enable **Debug Device**.
+3. Choose connection settings on the Setup page (these are ignored in debug mode).
+4. Configure Sweep or Time Trace measurement settings.
+5. Start the run and review data in plots.
+
+## Hardware Mode
+
+To measure with a real Keithley 2400 Series SourceMeter:
+
+Prerequisites:
+
+- A Keithley 2400 Series SourceMeter.
+- A working serial/USB serial connection that appears as a COM port (e.g., `COM3` on Windows).
+- The OS driver for the serial adapter or USB-to-serial cable, if needed.
+- Matching serial settings in the app and on the instrument. The release checks used `9600` baud.
+
+Hardware Check:
+
+Before measuring, connect the Keithley in safe open-circuit, low-current conditions and run:
+
+```matlab
+addpath('hardware_checks');
+results = run_hardware_checks("COM3", 9600, "REAR");
+```
+
+Change the port, baud rate, and terminal setting to match your setup.
 
 The public beta hardware gate was verified with:
 
@@ -54,31 +112,11 @@ The public beta hardware gate was verified with:
 
 Other Keithley 2400 Series models should be confirmed with the hardware checks before release use.
 
-## Launch
-
-Open MATLAB in this project folder and run:
-
-```matlab
-START_Keith_IVt
-```
-
-The launcher creates the app from `+ui/IVStudioApp.m`.
-
-## Hardware Check
-
-Before using a real device for measurement, connect the Keithley in safe open-circuit, low-current conditions and run:
-
-```matlab
-addpath('hardware_checks');
-results = run_hardware_checks("COM3", 9600, "REAR");
-```
-
-Change the port, baud rate, and terminal setting to match your setup.
-
 ## Basic Workflow
 
 1. Choose connection settings on the Setup page.
-2. Enable Debug Device for offline development, or connect to a real Keithley.
+2. For debug exploration: open the About page and enable **Debug Device**.
+   For hardware measurements: connect a real Keithley and run hardware checks.
 3. Configure Sweep or Time Trace measurement settings.
 4. Set Device and Operator metadata.
 5. Start the run, then review data in Devices and plots.
