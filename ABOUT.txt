@@ -1,0 +1,84 @@
+Keith-IVt
+
+
+DESCRIPTION
+Keith-IVt is a MATLAB-based measurement studio for Keithley 2400 Series SourceMeter instruments. It supports source sweeps, time traces, live/stored plotting, autosave recovery, CSV import/export, presets, and an offline debug mode for development without the instrument.
+
+PREREQUISITES
+- MATLAB with uifigure, serialport, and serialportlist support.
+- Tested with MATLAB R2025b on Windows.
+- A Keithley 2400 Series SourceMeter is required for real hardware measurements.
+- A working serial/USB serial connection must appear as a COM port, such as COM3 on Windows.
+- Install the operating-system driver for the serial adapter or USB-to-serial cable if needed.
+- Match the app serial settings to the instrument settings. The release hardware checks used 9600 baud.
+- Debug mode can be used without hardware or a serial driver.
+
+BASIC WORKFLOW
+- Setup: choose COM port, baud rate, front/rear terminals, and 2-wire/4-wire sense mode, then connect.
+- Measure: choose Sweep or Time Trace, configure source mode, timing, compliance/limit, NPLC, measurement range, and adaptive sweep rules when needed.
+- Fixed action area: set Debug Device, Device, Operator, then Start, Pause/Resume, or Stop/Output Off. This area stays visible while measurement parameters scroll.
+- Devices: review stored measurements, import data, refresh plots, save all, clear all, and recover autosaved cache files.
+- Log: view session logs when needed. Developer Log can be disabled to hide routine details during normal use.
+- About: enable debug mode, check updates, change UI font size, switch Light/Dark theme, and read app information.
+
+UI AND STATUS
+- The left navigation contains Setup, Measure, Export, Presets, Log, and About.
+- The bottom status bar shows connection/debug state, instrument model, run state, and estimate.
+- Run state is centralized as Stopped, Ready, Sweeping, or Paused.
+- Light and Dark themes are available from the About tab.
+- UI font size can be changed from the About tab.
+
+MEASUREMENT TYPES
+- Sweep changes the source value across a generated vector and measures current or voltage.
+- Time Trace keeps one fixed source value and records current or voltage versus elapsed time.
+- Time Trace sampling is limited by the Keithley source-delay-measure cycle, NPLC integration time, and USB/serial command overhead. The app checks for a conservative minimum interval before starting.
+- Switching Measurement Type or Source Mode while data exists prompts the user to save/clear/cancel first, reducing mixed-mode export mistakes.
+
+HARDWARE SETTINGS
+- Voltage-source/current-measure and current-source/voltage-measure modes.
+- Front/rear terminal selection.
+- 2-wire or 4-wire sense mode. The sense mode is recorded in metadata and sent to the Keithley as remote sense ON/OFF.
+- Auto measure range or fixed measure range.
+- Compliance/limit is always configured before measuring.
+- Connection settings are locked while connected and become editable again after disconnect.
+
+DATA AND METADATA
+- Simple export writes measured source/measure or time/measure columns.
+- Advanced export adds calculated resistance, conductance, and differential resistance columns for sweep data.
+- Metadata records measurement type, operator, sense mode, source mode, terminal, COM settings, instrument ID/model, NPLC, delay, compliance/limit, range mode, and range value.
+- Older files that used Comment metadata remain import-compatible; new files use Operator in the visible metadata block.
+- Presets are stored in config/presets.mat.
+
+PLOTTING
+- The default plot tab is Linear.
+- Sweep plots include linear I-V or V-I, log magnitude, and resistance analysis.
+- Time Trace plots use Time (s) on the X axis and measured current or voltage on the Y axis.
+- The All plot supports horizontal or vertical arrangement.
+- Plot X axes are linked so zooming one view keeps related views aligned.
+- Fullscreen opens larger MATLAB figures for inspection.
+
+RECOVERY AND LOGGING
+- Autosave recovery files are stored in the cache folder using stable latest-file names.
+- Session logs append to a current cache log and rotate when the file reaches about 1 MB.
+- Log lines include full date and time.
+- Developer Log shows detailed timing and estimate-basis lines for debugging. When disabled, routine detail lines are hidden.
+- Recovery lists are capped to keep the UI responsive.
+
+DEBUG MODE
+- Debug mode simulates connection and measurements without opening a serial port.
+- Debug mode can generate multiple pseudo-device profiles.
+- Pause/Resume and Stop/Output Off are supported in debug sweeps and time traces.
+- Simulated Delay and NPLC affect debug timing; NPLC also affects simulated noise.
+- Fixed measure range can produce OVR/NaN when simulated values exceed the selected range; Auto range does not clip simulated readings.
+- Debug mode records the same metadata fields as normal measurements where applicable.
+
+INSTRUMENT PROFILES
+- The app detects the connected model from *IDN? and maps it to a 2400-series profile.
+- Profiles currently cover common 2400-series models: 2400, 2401, 2410, 2420, 2425, 2430, and 2440.
+- Profiles record source limits, measurement ranges, NPLC limits, pulse-mode support, and safety notes.
+- UI input limits are not yet automatically clamped by profile; confirm exact model limits before high-power use.
+
+SAFETY NOTES
+- Use conservative compliance/limit values, especially during first contact with a device.
+- Verify terminal and 2-wire/4-wire sense settings before enabling output.
+- Stop/Output Off is intended to force output off after abort, error, or normal run completion.
