@@ -98,6 +98,16 @@ Change the port, baud rate, and terminal setting to match your setup.
 - Exported CSV files include visible metadata for measurement type, operator, source mode, sense mode, terminal, instrument, timing, range, and compliance settings.
 - Older files that used `Comment` metadata remain import-compatible.
 
+## Runtime Data Directory
+
+The Windows Runtime package stores runtime data (cache, logs, presets, and default exports) under:
+
+```text
+%APPDATA%/Keith-IVt
+```
+
+This keeps user data separate from the application install folder.
+
 ## Development Checks
 
 Run non-hardware checks from the project folder:
@@ -117,5 +127,5 @@ results = run_hardware_checks("COM3", 9600, "REAR");
 ## Known Limitations
 
 - Hardware smoke checks have been run on a Keithley 2401. Other models and serial adapters should be verified before release use.
-- A Windows Runtime package has been built and smoke-tested on the build machine, but not yet verified on a separate clean machine.
+- A Windows Runtime package has been built and smoke-tested on the build machine. Runtime startup can take tens of seconds because MATLAB Runtime initializes the JVM/uifigure stack.
 - Instrument profiles are detected, but UI limits are not yet fully clamped by the detected model.

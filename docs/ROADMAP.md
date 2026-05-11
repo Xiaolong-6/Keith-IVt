@@ -44,25 +44,41 @@ The next goal should not be adding many more controls. The next goal should be m
 
 ## Medium-Term Direction
 
-1. Make instrument profiles actually constrain the UI.
+1. Add a constant source / live monitor mode.
+   - Let the Keithley act as a stable continuous voltage or current source.
+   - Continuously monitor the measured current or voltage while output is enabled.
+   - Use an explicit manual Start Source and Stop/Output Off workflow, possibly reusing the existing Start and Stop controls when the mode is selected.
+   - Make source-on state visually obvious and safety-critical, with clear status text/lamp behavior while output is active.
+   - Record source mode, fixed source value, compliance/limit, terminal, sense mode, range, NPLC, and operator metadata.
+   - Treat this as a safety-sensitive feature: require conservative defaults, obvious output-off behavior, and hardware verification before release.
+
+2. Add optional startup update checks.
+   - Check the configured GitHub release page for newer versions when the app starts.
+   - Make the feature optional so users can disable network checks.
+   - Do not block UI startup; run the check asynchronously or after the main window is visible.
+   - Fail quietly when offline, behind a proxy, or when GitHub is unavailable.
+   - Show a concise non-modal notification if a newer release is available.
+   - Keep the existing manual Check Update button.
+
+3. Make instrument profiles actually constrain the UI.
    - Profiles currently record limits, but UI limits are not fully clamped by model.
    - After hardware testing, use detected profile limits to guide source range, compliance, NPLC, and sense-mode warnings.
 
-2. Separate measurement modes more cleanly.
+4. Separate measurement modes more cleanly.
    - Sweep and Time Trace share many fields but have different mental models.
    - Keep one Measure page for now, but internally separate planning, validation, and metadata per measurement type.
 
-3. Make export/import versioned.
+5. Make export/import versioned.
    - Add a metadata schema version.
    - Keep backward compatibility with older Comment fields.
    - Make mixed source-mode/sense-mode/range-mode datasets explicit in metadata.
 
-4. Build confidence through tests.
+6. Build confidence through tests.
    - Add tests for metadata schema stability.
    - Add tests for range clipping/OVR behavior in debug mode.
    - Add tests for import of old files and corrupted recovery files.
 
-5. Prepare for possible Python migration.
+7. Prepare for possible Python migration.
    - Keep core ideas independent: measurement plan, runner, metadata, export/import, instrument profile.
    - Avoid burying business rules inside MATLAB UI callbacks.
    - The cleaner the MATLAB architecture becomes, the easier a future Python port will be.

@@ -70,8 +70,15 @@ Validate the package on a clean machine or clean user profile:
 Built package:
 
 ```text
-dist/Keith-IVt-v0.3.0-beta-runtime-win.zip
+dist/Keith-IVt-v0.3.0-beta-runtime-win-gui.zip
 ```
+
+Distribution location:
+
+- Keep source code and documentation in the Git repository.
+- Upload the Runtime zip and its SHA256 file as GitHub Release assets.
+- Do not commit compiled Runtime builds to the repository.
+- GitHub Packages is not needed for this MATLAB desktop app.
 
 Executable inside the package:
 
@@ -88,8 +95,12 @@ MATLAB Runtime R2025b (25.2) for Windows
 Smoke test performed on the build machine:
 
 - Compiled executable launched successfully.
-- The process remained running after startup instead of exiting immediately.
-- Generated runtime data is directed to `prefdir/Keith-IVt` instead of the app install folder.
+- The UI opened successfully after MATLAB Runtime initialization.
+- The package was rebuilt with `mcc -e` so Windows launches the GUI app without an extra console window.
+- The About page loads packaged `ABOUT.txt`.
+- Closing the UI does not raise the deleted-object wait error.
+- Generated runtime data is directed to `%APPDATA%/Keith-IVt` instead of the app install folder or MATLAB Runtime cache.
+- Startup can take tens of seconds because MATLAB Runtime initializes the JVM/uifigure stack and packaged resources.
 
 ## Public Beta Notes
 
@@ -97,5 +108,5 @@ Document these limitations until they are resolved:
 
 - Real hardware behavior must be verified by the user on their own wiring and safety setup.
 - Instrument profile limits are not yet fully enforced in the UI.
-- MATLAB Runtime compatibility must be tested for each published package.
+- MATLAB Runtime startup is slower than launching from MATLAB source, especially on the first run or from synced folders.
 - Serial-port names differ across Windows, macOS, and Linux.
